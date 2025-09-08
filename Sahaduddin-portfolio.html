@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sahaduddin | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { background: #f4f7fa; color: #333; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; }
+
+    /* Preloader */
+    #preloader {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: white; display: flex; justify-content: center; align-items: center;
+      z-index: 3000; transition: opacity 0.6s ease, visibility 0.6s;
+    }
+    #preloader.hidden { opacity: 0; visibility: hidden; }
+    .loader-content { text-align: center; }
+    .loader-content h2 { font-size: 26px; color: #0078ff; margin-bottom: 20px; font-weight: 700; letter-spacing: 2px; }
+    .spinner { width: 40px; height: 40px; border: 4px solid #ddd; border-top: 4px solid #0078ff; border-radius: 50%; animation: spin 1s linear infinite; margin: auto; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    /* Navbar */
+    header {
+      width: 100%; position: fixed; top: 0; left: 0;
+      background: #fff; padding: 15px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 1000;
+    }
+    header h1 { font-size: 22px; font-weight: 700; color: #0078ff; }
+    nav ul { display: flex; list-style: none; gap: 25px; }
+    nav ul li a { color: #333; font-weight: 500; transition: 0.3s; }
+    nav ul li a:hover { color: #0078ff; }
+    .hire-btn {
+      background: #ff9800; color: white; border: none; padding: 10px 20px;
+      border-radius: 25px; font-size: 15px; font-weight: 600; cursor: pointer;
+      margin-left: 20px; transition: 0.3s; box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
+    .hire-btn:hover { background: #e68900; transform: translateY(-2px); box-shadow: 0 5px 14px rgba(0,0,0,0.25); }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 100px 20px;
+      background: linear-gradient(120deg, #0078ff 0%, #00c6ff 100%); color: white;
+      position: relative; z-index: 1; overflow: hidden;
+    }
+    .hero img { width: 150px; height: 150px; border-radius: 50%; border: 5px solid #fff; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-10px);} }
+    .hero h2 { font-size: 36px; margin-bottom: 10px; }
+    .hero p { font-size: 18px; margin-bottom: 20px; }
+    .buttons { display: flex; justify-content: center; gap: 20px; }
+    .btn { padding: 12px 25px; border-radius: 30px; border: none; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+    .btn-primary { background: white; color: #0078ff; }
+    .btn-primary:hover { background: #f0f0f0; }
+    .btn-outline { border: 2px solid white; background: transparent; color: white; }
+    .btn-outline:hover { background: white; color: #0078ff; }
+
+    /* Background Shapes */
+    .bg-shapes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; }
+    .bg-shapes .shape { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.6; animation: floatShape 10s infinite ease-in-out alternate; }
+    .bg-shapes .shape1 { width: 300px; height: 300px; background: #ff6ec4; top: 10%; left: 15%; animation-delay: 0s; }
+    .bg-shapes .shape2 { width: 250px; height: 250px; background: #0078ff; bottom: 15%; right: 20%; animation-delay: 2s; }
+    .bg-shapes .shape3 { width: 200px; height: 200px; background: #00c6ff; top: 40%; right: 10%; animation-delay: 4s; }
+    @keyframes floatShape { 0% { transform: translateY(0) translateX(0) scale(1); } 100% { transform: translateY(-30px) translateX(20px) scale(1.1); } }
+    .hero-content { position: relative; z-index: 2; }
+
+    /* Section Titles */
+    section { padding: 80px 20px; }
+    .section-title { text-align: center; font-size: 28px; font-weight: 700; margin-bottom: 50px; color: #0078ff; }
+
+    /* About */
+    .about { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 40px; }
+    .about img { width: 400px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .about-text { max-width: 500px; }
+    .about-text p { margin-bottom: 15px; }
+
+    /* Skills */
+    .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center; }
+    .skill-card { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s; }
+    .skill-card:hover { transform: translateY(-5px); }
+    .skill-card h3 { margin-bottom: 10px; color: #0078ff; }
+
+    /* Projects */
+    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .project-card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s; }
+    .project-card:hover { transform: translateY(-5px); }
+    .project-card img { width: 100%; height: 180px; object-fit: cover; }
+    .project-card .content { padding: 15px; }
+    .project-card h4 { color: #0078ff; margin-bottom: 10px; }
+    .project-card p { font-size: 14px; margin-bottom: 10px; }
+    .project-card a { color: #0078ff; font-weight: 600; cursor: pointer; }
+
+    /* Contact */
+    .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .contact form { display: flex; flex-direction: column; gap: 15px; }
+    .input-group { display: flex; align-items: center; gap: 10px; border: 1px solid #ddd; padding: 10px 15px; border-radius: 8px; background: #fff; }
+    .input-group input, .input-group textarea { flex: 1; border: none; outline: none; font-size: 15px; }
+    .contact button { background: #0078ff; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-size: 16px; transition: 0.3s; }
+    .contact button:hover { background: #005fcc; }
+    .map { border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+    /* Footer */
+    footer { text-align: center; padding: 20px; background: #fff; box-shadow: 0 -3px 10px rgba(0,0,0,0.05); }
+
+    /* Floating Buttons */
+    .floating-buttons { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 2000; }
+    .floating-buttons a { display: flex; justify-content: center; align-items: center; width: 55px; height: 55px; border-radius: 50%; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.3s, box-shadow 0.3s; }
+    .floating-buttons a:hover { transform: scale(1.1); box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
+    .floating-buttons img { width: 28px; height: 28px; }
+
+    /* Modals */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 3000; justify-content: center; align-items: center; }
+    .modal-content { 
+	background: white;
+    border-radius: 10px;
+    width: 90%;
+    overflow-y: auto;
+    position: relative;
+    animation: fadeIn 0.5s;
+	 }
+    @keyframes fadeIn { from {opacity: 0; transform: scale(0.95);} to {opacity: 1; transform: scale(1);} }
+    .modal .close { position: absolute; top: 0px;
+    right: 9px;
+    font-size: 25px; cursor: pointer; }
+    .resume-header { background: #0078ff; color: white; display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-radius: 10px 10px 0 0; }
+    .resume-header h3 { margin: 0; font-size: 18px; }
+    .download-btn { background: white;margin-right:1rem; color: #0078ff; padding: 6px 14px; border-radius: 20px; font-size: 14px; font-weight: 600; text-decoration: none; transition: 0.3s; }
+    .download-btn:hover { background: #f0f0f0; }
+    #resumeModal iframe { border: none; width: 100%; height: 85vh; box-shadow: inset 0 0 8px rgba(0,0,0,0.1); }
+
+    /* Reveal Animation */
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header { flex-direction: column; gap: 10px; }
+      nav ul { flex-wrap: wrap; gap: 15px; }
+      .hero h2 { font-size: 28px; }
+      .hero p { font-size: 16px; }
+      .about { flex-direction: column; text-align: center; }
+      .contact { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="loader-content">
+      <h2>Sahaduddin</h2>
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header>
+    <h1>Sahaduddin</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="hire-btn" onclick="openModal('resumeModal')">Hire Me</button>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero reveal" id="home">
+    <div class="bg-shapes">
+      <span class="shape shape1"></span>
+      <span class="shape shape2"></span>
+      <span class="shape shape3"></span>
+    </div>
+    <div class="hero-content">
+      <img src="D:\Saad All Docs\Looking for a job_2025\shaad_image3.jpeg" alt="Profile Picture">
+      <h2>Hi, I'm Sahaduddin 👋</h2>
+      <p>Frontend Developer | Angular | UI/UX Enthusiast</p>
+      <div class="buttons">
+        <button class="btn btn-primary" onclick="openModal('resumeModal')">Download Resume</button>
+        <button class="btn btn-outline" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Contact Me</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="reveal">
+    <h2 class="section-title">About Me</h2>
+    <div class="about">
+      <img src="C:\Users\User\OneDrive\Desktop\shaad_image2.jpeg" alt="About Image">
+      <div class="about-text">
+        <p>Hello! I'm Sahaduddin, a passionate Frontend Developer with expertise in Angular, TypeScript, and UI/UX design. I love building clean, responsive, and user-friendly applications.</p>
+        <p>With 4 years of experience, I have worked on dashboards, dynamic forms, and modern web apps. My goal is to become a full-stack developer and contribute to impactful projects.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="reveal">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills">
+      <div class="skill-card"><h3>Angular</h3><p>Expert in Angular 14 with Material UI</p></div>
+      <div class="skill-card"><h3>JavaScript</h3><p>Strong understanding of ES6+</p></div>
+      <div class="skill-card"><h3>TypeScript</h3><p>Type-safe application development</p></div>
+      <div class="skill-card"><h3>SQL</h3><p>Database queries and optimization</p></div>
+      <div class="skill-card"><h3>AG-Grid & AmCharts</h3><p>Interactive tables and charts</p></div>
+      <div class="skill-card"><h3>UI/UX</h3><p>Responsive & user-centric design</p></div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="reveal">
+    <h2 class="section-title">Projects</h2>
+    <div class="projects">
+      <div class="project-card">
+        <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/400/external-dashboard-web-design-and-development-flatart-icons-outline-flatarticons.png" alt="Dynamic Dashboard">
+        <div class="content">
+          <h4>Dynamic Dashboard</h4>
+          <p>Customizable Angular dashboard with AG-Grid & AmCharts for visualization.</p>
+          <!-- <a onclick="openModal('project1Modal')">View Project →</a> -->
+          <a href="https://6000-firebase-studio-1757290028416.cluster-zkm2jrwbnbd4awuedc2alqxrpk.cloudworkstations.dev" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="btn-link">
+       View Project →
+    </a>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/400/external-file-management-computer-science-flaticons-lineal-color-flat-icons.png" alt="File Management System">
+        <div class="content">
+          <h4>File Management System</h4>
+          <p>Role-based upload/download system with secure access control.</p>
+          <a onclick="openModal('project2Modal')">View Project →</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/400/external-form-user-interface-flaticons-lineal-color-flat-icons.png" alt="AI Form Builder">
+        <div class="content">
+          <h4>AI-Powered Form Builder</h4>
+          <p>Dynamic form generation with field validation & AI-assisted suggestions.</p>
+          <a onclick="openModal('project3Modal')">View Project →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="reveal">
+    <h2 class="section-title">Contact Me</h2>
+    <div class="contact">
+      <form>
+        <div class="input-group">
+          <img src="https://img.icons8.com/ios-filled/20/user.png"/>
+          <input type="text" placeholder="Your Name" required>
+        </div>
+        <div class="input-group">
+          <img src="https://img.icons8.com/ios-filled/20/email.png"/>
+          <input type="email" placeholder="Your Email" required>
+        </div>
+        <div class="input-group">
+          <img src="https://img.icons8.com/ios-filled/20/speech-bubble.png"/>
+          <textarea rows="5" placeholder="Your Message" required></textarea>
+        </div>
+        <button type="submit">📨 Send Message</button>
+      </form>
+      <div class="map">
+	  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56978.35675315162!2d82.71048847420532!3d26.803438138107314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3990daa920256eb5%3A0xdfea9251f4223af6!2sBasti%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1757177242300!5m2!1sen!2sin"
+	  width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Sahaduddin. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Floating Contact Buttons -->
+  <div class="floating-buttons">
+    <a href="https://wa.me/918888888888" target="_blank" class="whatsapp" title="Chat on WhatsApp">
+      <img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp">
+    </a>
+    <a href="https://www.linkedin.com/in/your-profile" target="_blank" class="linkedin" title="Visit LinkedIn">
+      <img src="https://img.icons8.com/color/48/linkedin.png" alt="LinkedIn">
+    </a>
+  </div>
+
+  <!-- Resume Modal -->
+  <div id="resumeModal" class="modal">
+    <div class="modal-content resume-frame">
+      <span class="close" onclick="closeModal('resumeModal')">&times;</span>
+      <div class="resume-header">
+        <h3>📄 My Resume</h3>
+        <a href="Saad Resume(2025).pdf" download class="download-btn">Download PDF</a>
+      </div>
+      <iframe src="Saad Resume(2025).pdf"></iframe>
+    </div>
+  </div>
+
+  <!-- Project Modals -->
+  <div id="project1Modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('project1Modal')">&times;</span>
+      <h2>Dynamic Dashboard</h2>
+      <p>A resizable widget-based dashboard with AG-Grid tables & AmCharts data visualization. Features include filtering, sorting, and responsive UI design.</p>
+      <img src="https://img.icons8.com/external-flat-juicy-fish/600/external-analytics-data-science-flat-flat-juicy-fish.png" style="width:100%;border-radius:8px;">
+    </div>
+  </div>
+
+  <div id="project2Modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('project2Modal')">&times;</span>
+      <h2>File Management System</h2>
+      <p>Implemented a secure document repository with user role mapping, permission logic, and version control. Developed with Angular 17 + Node.js + MariaDB.</p>
+      <img src="https://img.icons8.com/external-flaticons-flat-flat-icons/600/external-cloud-storage-cloud-computing-flaticons-flat-flat-icons.png" style="width:100%;border-radius:8px;">
+    </div>
+  </div>
+
+  <div id="project3Modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('project3Modal')">&times;</span>
+      <h2>AI-Powered Form Builder</h2>
+      <p>A smart form builder that creates fields dynamically based on metadata. Integrated validation, conditional logic, and AI suggestions for better UX.</p>
+      <img src="https://img.icons8.com/external-flat-juicy-fish/600/external-ai-artificial-intelligence-flat-flat-juicy-fish.png" style="width:100%;border-radius:8px;">
+    </div>
+  </div>
+
+  <script>
+    // Preloader
+    window.addEventListener("load", () => {
+      const preloader = document.getElementById("preloader");
+      setTimeout(() => { preloader.classList.add("hidden"); }, 1000);
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('nav ul li a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({behavior: 'smooth'});
+      });
+    });
+
+    // Reveal Animations
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Modal Functions
+    function openModal(id) { document.getElementById(id).style.display = "flex"; 
+    }
+    function closeModal(id) { document.getElementById(id).style.display = "none"; }
+  </script>
+</body>
+</html>
