@@ -1,0 +1,110 @@
+<div class="fixed inset-0 bg-black/70 z-[9998] flex justify-center items-center p-4 animate-fade-in" (click)="close.emit()">
+  <div class="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-hidden relative animate-slide-up flex flex-col" (click)="$event.stopPropagation()">
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 sm:p-6 flex justify-between items-center flex-shrink-0">
+      <h3 class="text-xl sm:text-2xl font-bold">My Resume</h3>
+      <button (click)="close.emit()" class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 hover:rotate-90 transition-transform duration-300 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <div class="p-6 sm:p-8 overflow-y-auto bg-gray-50 text-gray-800">
+      <div class="max-w-3xl mx-auto">
+        <!-- Header -->
+        <div class="text-center border-b pb-6 mb-6">
+          <h1 class="text-4xl font-bold text-gray-900">Sahaduddin Ansari</h1>
+          <p class="text-gray-600 mt-2">
+            Mob: +91-8587993678 | Email: ibnp786ansari@gmail.com
+          </p>
+          <p class="text-gray-600">
+            Address: HN-79 Millat Nagar Turkahiya, Gandhi Nagar, Basti, Uttar Pradesh – 272001
+          </p>
+        </div>
+
+        <!-- Career Objective -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-indigo-700 border-b-2 border-indigo-200 pb-2 mb-4">Career Objective</h2>
+          <p>To secure a challenging position as a Frontend/UI Developer where I can effectively contribute my Angular development skills, UI/UX design knowledge, and collaborative mindset to build intuitive, scalable, and responsive web applications that deliver value to end users and the organization.</p>
+        </div>
+
+        <!-- Professional Experience -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-indigo-700 border-b-2 border-indigo-200 pb-2 mb-4">Professional Experience</h2>
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800">Development Engineer</h3>
+            <p class="text-gray-600 italic">IPSO Management Pvt. Ltd. (Tofrum – Australia-based Company) | Apr 2024 – Present</p>
+            <ul class="list-disc list-inside mt-2 space-y-1 text-gray-700">
+              <li>Designing and developing complex, interactive, and responsive UI components using Angular 17, Angular Material, and Bootstrap 5.</li>
+              <li>Implementing AG-Grid for advanced tabular views with filtering, sorting, pagination, and column resizing.</li>
+              <li>Creating widget-based dashboards with resizable/reorderable tiles and AmCharts 4 integration for data visualization.</li>
+              <li>Applying role-based permission logic and dynamic component rendering using static role mappings.</li>
+              <li>Building modular and dynamic forms with advanced validation.</li>
+              <li>Collaborating with cross-functional teams remotely in an Agile environment.</li>
+              <li><span class="font-semibold">Technologies Used:</span> Angular 17, TypeScript, Flex Layout, Angular Material 14.2.7, AG-Grid, AmCharts 4, SCSS, Bootstrap 5, Git</li>
+            </ul>
+          </div>
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800">Software Engineer</h3>
+            <p class="text-gray-600 italic">WorkXmate Technologies Pvt. Ltd., Noida | Feb 2017 – Nov 2018</p>
+            <ul class="list-disc list-inside mt-2 space-y-1 text-gray-700">
+              <li>Migrated the company's cloud-based CRM application from legacy stack to Angular 14 with Angular Material.</li>
+              <li>Built dynamic dashboards, form components, and listing modules using reusable Angular components.</li>
+              <li>Used AmCharts4 for rendering real-time data visualizations in business dashboards.</li>
+              <li>Involved in backend testing for metadata-driven updates via SQL operations on development databases.</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-gray-800">Software Trainee</h3>
+            <p class="text-gray-600 italic">WorkXmate Technologies Pvt. Ltd., Noida | Jan 2020 – Dec 2020</p>
+            <ul class="list-disc list-inside mt-2 space-y-1 text-gray-700">
+              <li>Understood metadata-driven architecture of the CRM product and supported the technical lead in development tasks.</li>
+              <li>Managed backend operations through direct SQL query execution (Insert, Update, Delete) to maintain accurate metadata.</li>
+              <li>Conducted production-level testing for backend updates and system workflows.</li>
+              <li>Independently learned Angular 14 and developed a dummy project UI using Angular Material and AmCharts4 for internal demo purposes.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Projects Highlights -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-indigo-700 border-b-2 border-indigo-200 pb-2 mb-4">Projects Highlights</h2>
+          <ul class="list-disc list-inside space-y-1">
+            <li><span class="font-semibold">MSAT (OFI, Assets, Supplier, Document, Records, Training Management)</span> – Enhanced UI with reusable components to improve user experience and maintainability across modules.</li>
+            <li><span class="font-semibold">WXM ERP (CRM)</span> – Worked on internal metadata management by executing queries through a UI platform to update attribute configurations efficiently.</li>
+            <li><span class="font-semibold">Order Management System</span> (Built a full-stack web application using Angular 17, Node.js, Express.js, and MariaDB for managing orders. Implemented CRUD operations, authentication, role-based access, and responsive UI design.)</li>
+          </ul>
+        </div>
+        
+        <!-- Technical Skills -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-indigo-700 border-b-2 border-indigo-200 pb-2 mb-4">Technical Skills</h2>
+          <ul class="list-disc list-inside space-y-1">
+            <li><span class="font-semibold">Frontend:</span> Angular 14-17, HTML5, SCSS, Bootstrap 5, Amcharts4&5, Angular Material, AG-Grid.</li>
+            <li><span class="font-semibold">Backend:</span> Node.js, Express.js</li>
+            <li><span class="font-semibold">Database:</span> Oracle, MariaDB</li>
+            <li><span class="font-semibold">Tools & Platforms:</span> GitHub, VS Code, Postman</li>
+            <li><span class="font-semibold">Other:</span> API Testing, Responsive Design</li>
+          </ul>
+        </div>
+
+        <!-- Education -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-indigo-700 border-b-2 border-indigo-200 pb-2 mb-4">Education</h2>
+          <ul class="list-disc list-inside">
+            <li>MCA – CSJM University, Kanpur (2020)</li>
+            <li>B.Sc. - Mahakavi Tulsidas Mahavidhyalaya Paraspur, Gonda (2014)</li>
+          </ul>
+        </div>
+        
+        <!-- Certifications & Trainings -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-indigo-700 border-b-2 border-indigo-200 pb-2 mb-4">Certifications & Trainings</h2>
+           <ul class="list-disc list-inside space-y-1">
+            <li><span class="font-semibold">Angular (Full App) with Angular Material – Udemy</span> (Completed on 04/06/2023)</li>
+            <li><span class="font-semibold">Git & GitHub Essentials</span></li>
+            <li><span class="font-semibold">Agile Development Fundamentals</span></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

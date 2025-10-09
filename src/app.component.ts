@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HeaderComponent } from './components/header/header.component';
@@ -9,6 +9,7 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RevealDirective } from './directives/reveal.directive';
+import { ResumeModalComponent } from './components/resume-modal/resume-modal.component';
 import type { Project } from './models/project.model';
 
 @Component({
@@ -26,6 +27,7 @@ import type { Project } from './models/project.model';
     ContactComponent,
     FooterComponent,
     RevealDirective,
+    ResumeModalComponent,
   ],
   host: {
     '(window:scroll)': 'onWindowScroll()'
@@ -45,6 +47,14 @@ export class AppComponent {
 
   constructor() {
     setTimeout(() => this.isLoading.set(false), 1500);
+
+    effect(() => {
+      if (this.isMobileMenuOpen()) {
+        document.body.classList.add('overflow-hidden');
+      } else {
+        document.body.classList.remove('overflow-hidden');
+      }
+    });
   }
 
   onWindowScroll(): void {
