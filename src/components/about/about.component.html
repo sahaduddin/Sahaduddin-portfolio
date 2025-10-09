@@ -1,0 +1,39 @@
+<section id="about" class="py-20 sm:py-28 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16" appReveal>
+      <span class="inline-block bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+        👨‍💻 About Me
+      </span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4">
+        Crafting Digital Experiences
+      </h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Passionate about building scalable, performant web applications with a keen eye for user experience.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="relative" appReveal>
+        <div class="aspect-w-4 aspect-h-3 rounded-2xl overflow-hidden shadow-2xl">
+          <img src="https://picsum.photos/600/450" alt="Sahaduddin working on a project" class="object-cover w-full h-full">
+        </div>
+      </div>
+      <div appReveal>
+        <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Hello! I'm Sahaduddin</h3>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          A passionate Frontend Developer with expertise in Angular, TypeScript, and modern web technologies. I specialize in creating intuitive, responsive, and performant web applications that deliver exceptional user experiences.
+        </p>
+        <p class="text-gray-600 leading-relaxed mb-8">
+          With 4 years of hands-on experience, I've successfully delivered complex projects including dynamic dashboards, form builders, and file management systems. I'm committed to writing clean, maintainable code and staying updated with the latest industry trends.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          @for (stat of stats; track stat.label) {
+            <div class="text-center p-4 bg-white rounded-lg shadow-md">
+              <span class="text-4xl font-extrabold text-indigo-600 block">{{ stat.value }}</span>
+              <span class="text-sm font-medium text-gray-500 mt-2 block">{{ stat.label }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

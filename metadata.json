@@ -1,0 +1,5 @@
+{
+  "name": "Angular Portfolio Website",
+  "description": "A personal portfolio website for a frontend developer, converted from a static HTML page into a dynamic, standalone Angular application using Tailwind CSS.",
+  "requestFramePermissions": []
+}
