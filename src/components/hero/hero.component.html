@@ -27,8 +27,22 @@
       </div>
       
       <div class="relative flex justify-center items-center">
+        <!-- Sizing and animation container -->
         <div class="w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 relative animate-float">
-          <img src="assets/profile_image.jpg" alt="Profile Picture of Sahaduddin" class="rounded-full object-cover w-full h-full border-8 border-white/20 shadow-2xl">
+          <!-- Outer decorative ring with a glassy effect -->
+          <div class="w-full h-full rounded-full p-1.5 bg-white/10 backdrop-blur-sm shadow-2xl shadow-black/40">
+            <!-- Inner padding to create a separated border look -->
+            <div class="w-full h-full rounded-full bg-gradient-to-br from-indigo-600 to-purple-700 p-1">
+              <!-- The actual image, clipped to a circle -->
+              <img 
+                src="https://raw.githubusercontent.com/sahaduddin/angular-portfolio/refs/heads/main/src/assets/profile_image.png?token=GHSAT0AAAAAADJGP3IXG32QDTW6NWDUZTII2HITZSQ" 
+                alt="A picture of Sahaduddin Ansari"
+                width="384" 
+                height="384"
+                class="w-full h-full object-cover rounded-full shadow-inner"
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div>
