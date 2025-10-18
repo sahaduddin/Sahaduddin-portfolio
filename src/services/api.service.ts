@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import type { Project } from '../models/project.model';
 import type { Skill } from '../models/skill.model';
+import { HttpClient } from '@angular/common/http';
 
 const PROJECTS_DATA: Project[] = [
     {
@@ -194,11 +195,17 @@ const SKILLS_DATA: Skill[] = [
   providedIn: 'root',
 })
 export class ApiService {
+    private apiUrl = 'http://localhost:3001/api/contact'; // Backend API endpoint
+  constructor(private http: HttpClient) { }
+
   getProjects(): Observable<Project[]> {
     return of(PROJECTS_DATA);
   }
 
   getSkills(): Observable<Skill[]> {
     return of(SKILLS_DATA);
+  }
+   sendMessage(data: any): Observable<any> {
+    return this.http.post(this.apiUrl, data);
   }
 }

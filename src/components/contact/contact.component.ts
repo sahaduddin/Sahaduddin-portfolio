@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RevealDirective } from '../../directives/reveal.directive';
+import { ApiService } from '@/src/services/api.service';
 
 @Component({
   selector: 'app-contact',
@@ -13,7 +14,10 @@ import { RevealDirective } from '../../directives/reveal.directive';
 })
 export class ContactComponent implements OnInit {
   // FIX: Explicitly type FormBuilder to fix type inference for the `inject` function.
+    private apiService = inject(ApiService);
+  
   private fb: FormBuilder = inject(FormBuilder);
+
   // FIX: Explicitly type the sanitizer to resolve a potential type inference issue.
   private sanitizer: DomSanitizer = inject(DomSanitizer);
 
@@ -47,22 +51,31 @@ export class ContactComponent implements OnInit {
     }));
   }
 
-  handleSubmit(): void {
-    if (this.contactForm.invalid) {
-      this.contactForm.markAllAsTouched();
-      return;
-    }
+ handleSubmit(): void {
+  if (this.contactForm.invalid) {
+    this.contactForm.markAllAsTouched();
+    return;
+  }
 
-    this.formStatus.set({ message: 'Sending your message...', type: 'sending' });
+  this.formStatus.set({ message: 'Sending your message...', type: 'sending' });
 
-    // Simulate API call
-    setTimeout(() => {
+  this.apiService.sendMessage(this.contactForm.value).subscribe({
+    next: (res) => {
       this.formStatus.set({ message: 'Message sent successfully! I\'ll get back to you soon.', type: 'success' });
       this.contactForm.reset();
-      
+
       setTimeout(() => {
         this.formStatus.set(null);
       }, 5000);
-    }, 1500);
-  }
+    },
+    error: (err) => {
+      this.formStatus.set({ message: 'Failed to send message. Please try again later.', type: 'error' });
+
+      setTimeout(() => {
+        this.formStatus.set(null);
+      }, 5000);
+    }
+  });
+}
+
 }
