@@ -3,6 +3,11 @@ node_modules/
 # Angular build output
 angular-portfolio/dist/
 # Environment files (avoid uploading sensitive info)
+/src/environment/environment.ts
+/src/environment/environment.prod.ts
+/src/environments/environment.ts
+/src/environments/environment.prod.ts
+
 *.env
 # Logs
 logs/
@@ -38,3 +43,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+

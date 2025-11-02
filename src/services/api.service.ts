@@ -3,7 +3,8 @@ import { Observable, of } from 'rxjs';
 import type { Project } from '../models/project.model';
 import type { Skill } from '../models/skill.model';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environment/environment.prod';
+import { environment } from '../environment/environment';
+import emailjs from '@emailjs/browser';
 
 const PROJECTS_DATA: Project[] = [
     {
@@ -191,15 +192,19 @@ const SKILLS_DATA: Skill[] = [
   }
 ];
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-    // private apiUrl = 'http://localhost:3001/api/contact'; // Backend API endpoint
- private apiUrl = environment.apiUrl;
+  constructor(private http: HttpClient) {
+    // Initialize EmailJS with environment variables
+    emailjs.init(environment.emailjs.publicKey);
+  }
 
-    constructor(private http: HttpClient) { }
+  // EmailJS configuration from environment
+  private get emailjsConfig() {
+    return environment.emailjs;
+  }
 
   getProjects(): Observable<Project[]> {
     return of(PROJECTS_DATA);
@@ -208,7 +213,33 @@ export class ApiService {
   getSkills(): Observable<Skill[]> {
     return of(SKILLS_DATA);
   }
-   sendMessage(data: any): Observable<any> {
-    return this.http.post(this.apiUrl, data);
+
+  async sendMessage(formData: any): Promise<{success: boolean, message: string}> {
+    try {
+      const templateParams = {
+        to_name: 'Sahaduddin',  // Your name or recipient's name
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message
+      };
+
+      await emailjs.send(
+        this.emailjsConfig.serviceID,
+        this.emailjsConfig.templateID,
+        templateParams,
+        this.emailjsConfig.publicKey
+      );
+
+      return { 
+        success: true, 
+        message: 'Message sent successfully!' 
+      };
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      return { 
+        success: false, 
+        message: 'Failed to send message. Please try again.' 
+      };
+    }
   }
 }

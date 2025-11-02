@@ -51,31 +51,51 @@ export class ContactComponent implements OnInit {
     }));
   }
 
- handleSubmit(): void {
+ async handleSubmit(): Promise<void> {
   if (this.contactForm.invalid) {
     this.contactForm.markAllAsTouched();
     return;
   }
 
   this.formStatus.set({ message: 'Sending your message...', type: 'sending' });
-
-  this.apiService.sendMessage(this.contactForm.value).subscribe({
-    next: (res) => {
+  if (this.contactForm.valid) {
+    const response = await this.apiService.sendMessage(this.contactForm.value);
+    
+    if (response.success) {
       this.formStatus.set({ message: 'Message sent successfully! I\'ll get back to you soon.', type: 'success' });
-      this.contactForm.reset();
 
+      this.contactForm.reset();
+      
       setTimeout(() => {
         this.formStatus.set(null);
       }, 5000);
-    },
-    error: (err) => {
-      this.formStatus.set({ message: 'Failed to send message. Please try again later.', type: 'error' });
+    } else {
+      // alert('Failed to send message. Please try again.');
+           this.formStatus.set({ message: 'Failed to send message. Please try again later.', type: 'error' });
 
       setTimeout(() => {
         this.formStatus.set(null);
       }, 5000);
     }
-  });
+  }
+
+  // this.apiService.sendMessage(this.contactForm.value).subscribe({
+  //   next: (res) => {
+  //     this.formStatus.set({ message: 'Message sent successfully! I\'ll get back to you soon.', type: 'success' });
+  //     this.contactForm.reset();
+
+  //     setTimeout(() => {
+  //       this.formStatus.set(null);
+  //     }, 5000);
+  //   },
+  //   error: (err) => {
+  //     this.formStatus.set({ message: 'Failed to send message. Please try again later.', type: 'error' });
+
+  //     setTimeout(() => {
+  //       this.formStatus.set(null);
+  //     }, 5000);
+  //   }
+  // });
 }
 
 }
