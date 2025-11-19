@@ -93,7 +93,7 @@ async handleSubmit(): Promise<void> {
 
   // Form data prepare karen (Web3Forms required fields)
   const formData = {
-    access_key: 'cdf747dc-1117-438f-95f3-046a7cd047c7',
+    access_key: 'e498f8bc-6bfa-4ad9-a98b-5b1e32e44db3',
     name: this.contactForm.value.name,
     email: this.contactForm.value.email,
     subject: this.contactForm.value.subject,
