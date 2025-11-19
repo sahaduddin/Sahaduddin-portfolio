@@ -51,51 +51,83 @@ export class ContactComponent implements OnInit {
     }));
   }
 
- async handleSubmit(): Promise<void> {
+//  async handleSubmit(): Promise<void> {
+//   if (this.contactForm.invalid) {
+//     this.contactForm.markAllAsTouched();
+//     return;
+//   }
+
+//   this.formStatus.set({ message: 'Sending your message...', type: 'sending' });
+//   if (this.contactForm.valid) {
+//     const response = await this.apiService.sendMessage(this.contactForm.value);
+    
+//     if (response.success) {
+//       this.formStatus.set({ message: 'Message sent successfully! I\'ll get back to you soon.', type: 'success' });
+
+//       this.contactForm.reset();
+      
+//       setTimeout(() => {
+//         this.formStatus.set(null);
+//       }, 5000);
+//     } else {
+//       // alert('Failed to send message. Please try again.');
+//            this.formStatus.set({ message: 'Failed to send message. Please try again later.', type: 'error' });
+
+//       setTimeout(() => {
+//         this.formStatus.set(null);
+//       }, 5000);
+//     }
+//   }
+
+// }
+async handleSubmit(): Promise<void> {
   if (this.contactForm.invalid) {
     this.contactForm.markAllAsTouched();
     return;
   }
 
   this.formStatus.set({ message: 'Sending your message...', type: 'sending' });
-  if (this.contactForm.valid) {
-    const response = await this.apiService.sendMessage(this.contactForm.value);
-    
-    if (response.success) {
-      this.formStatus.set({ message: 'Message sent successfully! I\'ll get back to you soon.', type: 'success' });
 
+  // Web3Forms API endpoint
+  const endpoint = 'https://api.web3forms.com/submit';
+
+  // Form data prepare karen (Web3Forms required fields)
+  const formData = {
+    access_key: 'cdf747dc-1117-438f-95f3-046a7cd047c7',
+    name: this.contactForm.value.name,
+    email: this.contactForm.value.email,
+    subject: this.contactForm.value.subject,
+    message: this.contactForm.value.message
+  };
+
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+
+    if (response.ok) {
+      this.formStatus.set({ message: 'Message sent successfully! I\'ll get back to you soon.', type: 'success' });
       this.contactForm.reset();
-      
       setTimeout(() => {
         this.formStatus.set(null);
       }, 5000);
     } else {
-      // alert('Failed to send message. Please try again.');
-           this.formStatus.set({ message: 'Failed to send message. Please try again later.', type: 'error' });
-
+      this.formStatus.set({ message: 'Failed to send message. Please try again later.', type: 'error' });
       setTimeout(() => {
         this.formStatus.set(null);
       }, 5000);
     }
+  } catch {
+    this.formStatus.set({ message: 'Failed to send message. Please try again later.', type: 'error' });
+    setTimeout(() => {
+      this.formStatus.set(null);
+    }, 5000);
   }
-
-  // this.apiService.sendMessage(this.contactForm.value).subscribe({
-  //   next: (res) => {
-  //     this.formStatus.set({ message: 'Message sent successfully! I\'ll get back to you soon.', type: 'success' });
-  //     this.contactForm.reset();
-
-  //     setTimeout(() => {
-  //       this.formStatus.set(null);
-  //     }, 5000);
-  //   },
-  //   error: (err) => {
-  //     this.formStatus.set({ message: 'Failed to send message. Please try again later.', type: 'error' });
-
-  //     setTimeout(() => {
-  //       this.formStatus.set(null);
-  //     }, 5000);
-  //   }
-  // });
 }
 
 }
